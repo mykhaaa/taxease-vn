@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaxEase VN - NGUYEN LY KHA MY Portfolio - AI Tax Compliance for Vietnam's Household Businesses</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1629;
+    --blue: #1D4ED8;
+    --blue-mid: #2563EB;
+    --blue-light: #60A5FA;
+    --sky: #BAE6FD;
+    --gold: #F59E0B;
+    --gold-light: #FDE68A;
+    --white: #F8FAFC;
+    --gray: #94A3B8;
+    --line: rgba(148,163,184,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATED BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(29,78,216,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(245,158,11,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(29,78,216,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(11,22,41,0.7);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--blue-light); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-badge {
+    background: rgba(245,158,11,0.15);
+    border: 1px solid rgba(245,158,11,0.4);
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(29,78,216,0.15);
+    border: 1px solid rgba(29,78,216,0.4);
+    color: var(--blue-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    width: fit-content;
+    animation: fadeInUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 .accent { color: var(--blue-light); }
+  .hero h1 .gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    animation: fadeInUp 0.6s 0.2s ease both;
+  }
+
+  .hero-sub strong { color: var(--white); font-weight: 500; }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--blue-mid);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .btn-primary:hover { background: #1D4ED8; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(29,78,216,0.4); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--line);
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: rgba(148,163,184,0.4); background: rgba(255,255,255,0.04); }
+
+  /* ── KPI STRIP ── */
+  .kpi-strip {
+    position: relative;
+    z-index: 1;
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 40px 48px;
+  }
+  .kpi-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .kpi-item {
+    padding: 0 32px;
+    border-right: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.5s ease;
+  }
+  .kpi-item:last-child { border-right: none; }
+  .kpi-item.visible { opacity: 1; transform: translateY(0); }
+
+  .kpi-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+  }
+  .kpi-num .unit { color: var(--blue-light); font-size: 1.4rem; }
+  .kpi-label { color: var(--gray); font-size: 0.82rem; margin-top: 6px; font-weight: 400; }
+  .kpi-sub { color: var(--blue-light); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; margin-top: 4px; }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--blue-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  .section-desc {
+    color: var(--gray);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 56px;
+    font-weight: 300;
+  }
+
+  /* ── PROBLEM ── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .problem-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px;
+    transition: all 0.3s;
+  }
+  .problem-card:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(29,78,216,0.3);
+    transform: translateY(-2px);
+  }
+  .problem-card .icon {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+  .problem-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+  .problem-card p {
+    color: var(--gray);
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .problem-card .highlight {
+    display: inline-block;
+    margin-top: 12px;
+    background: rgba(29,78,216,0.15);
+    border: 1px solid rgba(29,78,216,0.3);
+    color: var(--blue-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  /* ── FEATURES ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue-mid), var(--blue-light));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feature-card:hover {
+    border-color: rgba(29,78,216,0.35);
+    background: rgba(29,78,216,0.06);
+    transform: translateY(-3px);
+  }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .feature-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+  .feature-card p {
+    color: var(--gray);
+    font-size: 0.83rem;
+    line-height: 1.6;
+  }
+
+  /* ── MARKET ── */
+  .market-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .funnel-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .funnel-tier {
+    border-radius: 8px;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid;
+    transition: all 0.3s;
+  }
+  .funnel-tier:hover { transform: translateX(4px); }
+
+  .funnel-tier.tam {
+    background: rgba(29,78,216,0.08);
+    border-color: rgba(29,78,216,0.2);
+  }
+  .funnel-tier.sam {
+    background: rgba(29,78,216,0.15);
+    border-color: rgba(29,78,216,0.35);
+    margin: 0 16px;
+  }
+  .funnel-tier.som {
+    background: rgba(29,78,216,0.25);
+    border-color: rgba(29,78,216,0.5);
+    margin: 0 32px;
+  }
+  .funnel-tier.beachhead {
+    background: rgba(245,158,11,0.12);
+    border-color: rgba(245,158,11,0.35);
+    margin: 0 48px;
+  }
+
+  .tier-info h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .tier-info p {
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+  .tier-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--blue-light);
+    text-align: right;
+  }
+  .funnel-tier.beachhead .tier-num { color: var(--gold); }
+
+  .market-insights {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .insight-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .insight-box .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px;
+  }
+  .insight-box .val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .insight-box .desc {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  /* ── COMPETITIVE ── */
+  .comp-table-wrap {
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  thead th {
+    background: rgba(29,78,216,0.15);
+    padding: 14px 18px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue-light);
+    font-weight: 500;
+  }
+
+  tbody tr {
+    border-top: 1px solid var(--line);
+    transition: background 0.2s;
+  }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody tr.highlight-row {
+    background: rgba(29,78,216,0.1);
+    border-color: rgba(29,78,216,0.2);
+  }
+
+  td {
+    padding: 13px 18px;
+    color: var(--gray);
+    vertical-align: middle;
+  }
+
+  td.bold { color: var(--white); font-weight: 500; }
+  td.green { color: #4ADE80; }
+  td.yellow { color: var(--gold); }
+  td.blue-c { color: var(--blue-light); }
+
+  .star-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-mid);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+
+  /* ── UNIT ECONOMICS ── */
+  .economics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .econ-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .econ-card .label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px;
+  }
+  .econ-card .val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .econ-card .sub { font-size: 0.78rem; color: var(--gray); margin-top: 4px; }
+  .econ-card.accent-gold { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.05); }
+  .econ-card.accent-gold .val { color: var(--gold); }
+  .econ-card.accent-blue { border-color: rgba(29,78,216,0.4); background: rgba(29,78,216,0.08); }
+  .econ-card.accent-blue .val { color: var(--blue-light); }
+
+  /* ── REVENUE PROJECTION ── */
+  .revenue-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .rev-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .rev-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--gray);
+    width: 56px;
+    flex-shrink: 0;
+  }
+  .rev-bar-wrap {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    height: 36px;
+    overflow: hidden;
+    position: relative;
+  }
+  .rev-bar {
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 0;
+  }
+  .rev-bar.y1 { background: linear-gradient(90deg, #1D4ED8, #3B82F6); }
+  .rev-bar.y2 { background: linear-gradient(90deg, #1D4ED8, #60A5FA); }
+  .rev-bar.y3 { background: linear-gradient(90deg, #1E40AF, #2563EB, #60A5FA); }
+
+  .rev-label {
+    width: 100px;
+    text-align: right;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── TECH STACK ── */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .tech-item {
+    display: flex;
+    gap: 16px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px;
+    align-items: flex-start;
+    transition: all 0.3s;
+  }
+  .tech-item:hover { border-color: rgba(29,78,216,0.3); background: rgba(29,78,216,0.05); }
+
+  .tech-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: rgba(29,78,216,0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tech-info h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .tech-info p { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: rgba(29,78,216,0.1);
+    border: 1px solid rgba(29,78,216,0.3);
+    border-left: 3px solid var(--blue-mid);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 22px;
+    margin: 32px 0;
+    color: #BFDBFE;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .callout strong { color: var(--white); font-style: normal; }
+
+  .callout-gold {
+    background: rgba(245,158,11,0.08);
+    border-color: rgba(245,158,11,0.3);
+    border-left-color: var(--gold);
+    color: var(--gold-light);
+  }
+
+  /* ── ROADMAP ── */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    left: 22px;
+    top: 24px;
+    bottom: 24px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--blue-mid), rgba(29,78,216,0.1));
+  }
+
+  .roadmap-item {
+    display: flex;
+    gap: 24px;
+    padding: 16px 0;
+    align-items: flex-start;
+    position: relative;
+  }
+  .roadmap-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(29,78,216,0.2);
+    border: 2px solid var(--blue-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--blue-light);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    background: var(--navy);
+  }
+  .roadmap-content h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .roadmap-content p {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+  .roadmap-content .kpi-tag {
+    display: inline-block;
+    margin-top: 6px;
+    background: rgba(29,78,216,0.15);
+    border: 1px solid rgba(29,78,216,0.3);
+    color: var(--blue-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* ── IMPACT ── */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .impact-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: all 0.3s;
+  }
+  .impact-card:hover { border-color: rgba(74,222,128,0.2); background: rgba(74,222,128,0.03); }
+  .impact-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #4ADE80;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .impact-info h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .impact-info p { font-size: 0.8rem; color: var(--gray); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--line);
+    padding: 48px;
+    text-align: center;
+  }
+  footer h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  footer p {
+    color: var(--gray);
+    font-size: 0.85rem;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .footer-meta {
+    margin-top: 32px;
+    color: rgba(148,163,184,0.5);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    position: relative;
+    z-index: 1;
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 0;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links, .nav-badge { display: none; }
+    .hero, section { padding: 80px 24px 60px; }
+    .kpi-strip { padding: 32px 24px; }
+    .kpi-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .kpi-item { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+    .problem-grid, .features-grid, .economics-grid, .tech-grid, .impact-grid { grid-template-columns: 1fr; }
+    .market-layout { grid-template-columns: 1fr; }
+    footer { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Tax<span>Ease</span> VN</div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#economics">Economics</a></li>
+    <li><a href="#impact">Impact</a></li>
+  </ul>
+  <span class="nav-badge">Concept · 2026</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">GovTech · Vietnam Tax Reform 2026 · AI-Powered</div>
+  <h1>Tax compliance<br>for <span class="accent">5.2 million</span><br>micro-<span class="gold">businesses</span></h1>
+  <p class="hero-sub">
+    Vietnam's 2026 reform forces <strong>3.83M household businesses</strong> to self-declare tax for the first time — with no tools, no accounting knowledge, and fines up to 20M VND for errors. TaxEase VN closes that gap.
+  </p>
+  <div class="hero-ctas">
+    <a href="#problem" class="btn-primary">Explore the Problem →</a>
+    <a href="#economics" class="btn-outline">View Business Model</a>
+  </div>
+</div>
+
+<!-- KPI STRIP -->
+<div class="kpi-strip">
+  <div class="kpi-inner">
+    <div class="kpi-item">
+      <div class="kpi-num">3.83<span class="unit">M</span></div>
+      <div class="kpi-label">Registered household businesses</div>
+      <div class="kpi-sub">General Department of Taxation, Oct 2025</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-num">1.34<span class="unit">M</span></div>
+      <div class="kpi-label">Core target market (SAM)</div>
+      <div class="kpi-sub">Revenue 500M–3B VND/year</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-num">&lt;15<span class="unit">%</span></div>
+      <div class="kpi-label">Currently using any software</div>
+      <div class="kpi-sub">Massive underserved gap</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-num">17<span class="unit">x</span></div>
+      <div class="kpi-label">LTV / CAC ratio (base case)</div>
+      <div class="kpi-sub">Strong unit economics</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-label">01 — The Problem</div>
+  <h2 class="section-title">A policy shock hitting<br>millions unprepared</h2>
+  <p class="section-desc">Effective January 1, 2026, Vietnam's lump-sum tax system is abolished. Every household business must now self-declare quarterly — with zero government-provided tools to do it.</p>
+
+  <div class="problem-grid reveal">
+    <div class="problem-card">
+      <div class="icon">📋</div>
+      <h3>Mandatory Self-Declaration</h3>
+      <p>All 3.83M registered household businesses must now track revenue, compute VAT + PIT, maintain 4 accounting books, and file quarterly returns. Previously, tax was a fixed annual lump sum — no records needed.</p>
+      <span class="highlight">From Jan 1, 2026</span>
+    </div>
+    <div class="problem-card">
+      <div class="icon">🧾</div>
+      <h3>E-Invoice Mandate</h3>
+      <p>Household businesses  with revenue above 1B VND/year must now issue General Department of Taxation-compliant e-invoices for every transaction. Currently, only ~110,000 of 3.83M household businesses issue any e-invoices at all.</p>
+      <span class="highlight">110K / 3.83M complying</span>
+    </div>
+    <div class="problem-card">
+      <div class="icon">💸</div>
+      <h3>Steep Penalty Exposure</h3>
+      <p>Late filing (&gt;91 days): 8–15M VND. Failure to issue invoice: 10–20M VND. For a business earning 1B VND/year, one compliance mistake costs 1–2% of annual revenue.</p>
+      <span class="highlight">8–20M VND per violation</span>
+    </div>
+    <div class="problem-card">
+      <div class="icon">📊</div>
+      <h3>Zero Accounting Literacy</h3>
+      <p>70%+ of household business owners cannot distinguish the two tax calculation methods. 85% use only Excel or paper ledgers. 45% of first-time filers make errors that trigger re-assessment.</p>
+      <span class="highlight">45% error rate, first filers</span>
+    </div>
+  </div>
+
+  <div class="callout callout-gold" style="margin-top: 32px;">
+    <strong>The trigger moment:</strong> From January 2026, Shopee and TikTok Shop automatically withhold tax from seller payouts — creating immediate reconciliation demand for 601,800 e-commerce sellers who suddenly see money missing from their accounts.
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="section-label">02 — The Solution</div>
+  <h2 class="section-title">Tax compliance<br>for non-accountants</h2>
+  <p class="section-desc">TaxEase is built for zero accounting literacy. Scan a receipt, get your tax liability. No jargon, no manual entry, no accountant needed.</p>
+
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <span class="feature-icon">📷</span>
+      <h3>AI Invoice Scanner (OCR)</h3>
+      <p>Camera captures paper bills and receipts. Google Vision + VietOCR auto-populate all 4 mandatory accounting books. >92% accuracy on Vietnamese handwritten text.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🧮</span>
+      <h3>Smart Tax Engine</h3>
+      <p>Deterministic rule-based engine covers all 6 business types, 3 VAT/PIT rate combinations, and all 4 household business groups. Auto-selects optimal method for the user.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🧾</span>
+      <h3>One-Tap E-Invoice</h3>
+      <p>Generates General Department of Taxation-compliant PDF + XML e-invoices per Circular 78/2021. Full integration with General Department of Taxation's national e-invoice schema v2.0.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔔</span>
+      <h3>Proactive Compliance Alerts</h3>
+      <p>Firebase push + Zalo OA webhook alerts before every quarterly deadline. Real-time penalty risk warnings as revenue approaches thresholds.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💬</span>
+      <h3>Plain-Language UX</h3>
+      <p>Replaces accounting jargon with everyday terms. Visual-first design for users with no digital accounting background.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🟦</span>
+      <h3>Zalo Chatbot Onboarding</h3>
+      <p>Full setup via Vietnam's #1 app (76M active users). Reaches rural and suburban household businesses where CAC via Zalo OA approaches near zero with B2G bundling.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 32px;">
+    <strong>Compliance-as-a-Service modularity:</strong> The tax rule engine is decoupled from the UI layer — when new Circular regulations are published, rules update via CI/CD pipeline in &lt;30 days without requiring a full app redeployment.
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- MARKET -->
+<section id="market">
+  <div class="section-label">03 — Market Sizing</div>
+  <h2 class="section-title">1.34M businesses,<br>zero dedicated tools</h2>
+  <p class="section-desc">MISA dominates the enterprise segment — but the 1.34M household businesses tier sits entirely outside their focus. A blue ocean, validated by India's ClearTax reaching 5M users in 2 years from the same GST-reform shock.</p>
+
+  <div class="market-layout reveal">
+    <div class="funnel-container">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em;">Market Funnel</div>
+      <div class="funnel-tier tam">
+        <div class="tier-info"><h4>TAM — Total Market</h4><p>All registered + unregistered household businesses</p></div>
+        <div class="tier-num">5.2M</div>
+      </div>
+      <div class="funnel-tier sam">
+        <div class="tier-info"><h4>SAM — Core Target</h4><p>Revenue 500M–3B VND/year, must self-declare</p></div>
+        <div class="tier-num">1.34M</div>
+      </div>
+      <div class="funnel-tier som">
+        <div class="tier-info"><h4>SOM — Year 1 Goal</h4><p>1% SAM, 13,400 paying customers</p></div>
+        <div class="tier-num">~12B VND ARR</div>
+      </div>
+      <div class="funnel-tier beachhead">
+        <div class="tier-info"><h4 style="color: var(--gold);">⚡ Beachhead</h4><p>E-commerce sellers with tax withholding urgency</p></div>
+        <div class="tier-num" style="color: var(--gold);">601.8K</div>
+      </div>
+    </div>
+
+    <div class="market-insights">
+      <div class="insight-box">
+        <div class="label">Software penetration gap</div>
+        <div class="val">85%</div>
+        <div class="desc">of SAM target use only Excel or paper — no accounting software of any kind. VCCI Digital SME Survey 2025.</div>
+      </div>
+      <div class="insight-box">
+        <div class="label">Comparable analogue</div>
+        <div class="val">ClearTax India</div>
+        <div class="desc">Hit 5M users in 24 months targeting the same compliance gap created by India's GST reform in 2017. Directly comparable regulatory shock.</div>
+      </div>
+      <div class="insight-box">
+        <div class="label">Competitive moat</div>
+        <div class="val">Uncontested</div>
+        <div class="desc">MISA serves 283K+ enterprises at 2.5–15M VND/year. TaxEase targets the 1.34M household businesses tier entirely outside MISA's current focus and viable price floor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMPETITIVE -->
+<section id="competitive">
+  <div class="section-label">04 — Competitive Landscape</div>
+  <h2 class="section-title">Every competitor<br>misses this segment</h2>
+  <p class="section-desc">The market either overshoots with complex enterprise tools or undershoots with declaration-only free apps. TaxEase owns the middle ground.</p>
+
+  <div class="comp-table-wrap reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>Solution</th>
+          <th>Target</th>
+          <th>Price/Year</th>
+          <th>household businesses-Ready?</th>
+          <th>AI/OCR?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">MISA SME</td>
+          <td>Enterprise / SME</td>
+          <td>2.5–15M VND</td>
+          <td style="color: #F87171;">✗ Complex UI</td>
+          <td style="color: #F87171;">✗</td>
+        </tr>
+        <tr>
+          <td class="bold">FAST Accounting</td>
+          <td>Enterprise / SME</td>
+          <td>3–12M VND</td>
+          <td style="color: #F87171;">✗ No household businesses workflow</td>
+          <td style="color: #F87171;">✗</td>
+        </tr>
+        <tr>
+          <td class="bold">eTax Mobile (GDT)</td>
+          <td>All household businesses</td>
+          <td>Free</td>
+          <td style="color: var(--gold);">⚠ Declaration only</td>
+          <td style="color: #F87171;">✗</td>
+        </tr>
+        <tr>
+          <td class="bold">Excel / Paper</td>
+          <td>Informal household businesses</td>
+          <td>Free</td>
+          <td style="color: #F87171;">✗ Error-prone</td>
+          <td style="color: #F87171;">✗</td>
+        </tr>
+        <tr>
+          <td class="bold">Outsourced Accounting</td>
+          <td>All sizes</td>
+          <td>4.2–12M VND</td>
+          <td style="color: var(--gold);">⚠ Expensive</td>
+          <td style="color: #F87171;">✗</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><span class="star-badge">★ TaxEase VN</span></td>
+          <td class="blue-c">household businesses 500M–3B VND</td>
+          <td class="green">600K–1.2M VND</td>
+          <td class="green">✓ Purpose-built</td>
+          <td class="green">✓ OCR + AI</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout" style="margin-top: 24px;">
+    <strong>Price moat:</strong> At 900K VND/year, TaxEase costs less than one month of the cheapest outsourced accounting service (350K–1M VND/month). Adoption is economically rational, not discretionary.
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ECONOMICS -->
+<section id="economics">
+  <div class="section-label">05 — Business Model & Unit Economics</div>
+  <h2 class="section-title">Strong SaaS fundamentals<br>at micro-business scale</h2>
+  <p class="section-desc">Freemium entry, two paid tiers, infrastructure-heavy fixed costs enabling 77%+ gross margin expansion with scale.</p>
+
+  <div class="economics-grid reveal">
+    <div class="econ-card accent-blue">
+      <div class="label">Blended ARPU</div>
+      <div class="val">900K VND/year</div>
+      <div class="sub">~$37 USD · 70/30 Basic/Pro mix</div>
+    </div>
+    <div class="econ-card">
+      <div class="label">Blended CAC</div>
+      <div class="val">225K VND</div>
+      <div class="sub">~$9.4 · 4-channel weighted average</div>
+    </div>
+    <div class="econ-card accent-gold">
+      <div class="label">LTV / CAC</div>
+      <div class="val">17.3x</div>
+      <div class="sub">Base case · 5.6x conservative</div>
+    </div>
+    <div class="econ-card">
+      <div class="label">Gross Margin</div>
+      <div class="val">77%</div>
+      <div class="sub">Fixed infra cost structure</div>
+    </div>
+    <div class="econ-card">
+      <div class="label">CAC Payback</div>
+      <div class="val">3 months</div>
+      <div class="sub">Base case · 6 months conservative</div>
+    </div>
+    <div class="econ-card accent-blue">
+      <div class="label">Break-even ARR</div>
+      <div class="val">10–11B VND</div>
+      <div class="sub">Achievable at 1% SAM (Year 1)</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px;" class="reveal">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px;">3-Year Revenue Projection (billion VND ARR)</div>
+    <div class="revenue-bars">
+      <div class="rev-row">
+        <div class="rev-year">Y1 2026</div>
+        <div class="rev-bar-wrap">
+          <div class="rev-bar y1" data-width="12" style="width: 0%">13,400 users · 1% SAM</div>
+        </div>
+        <div class="rev-label" style="color: #60A5FA;">12.1B VND</div>
+      </div>
+      <div class="rev-row">
+        <div class="rev-year">Y2 2027</div>
+        <div class="rev-bar-wrap">
+          <div class="rev-bar y2" data-width="38" style="width: 0%">40,200 users · 3% SAM</div>
+        </div>
+        <div class="rev-label" style="color: #93C5FD;">38.2B VND</div>
+      </div>
+      <div class="rev-row">
+        <div class="rev-year">Y3 2028</div>
+        <div class="rev-bar-wrap">
+          <div class="rev-bar y3" data-width="100" style="width: 0%">100,500 users · 7.5% SAM</div>
+        </div>
+        <div class="rev-label" style="color: var(--blue-light);">100.5B VND</div>
+      </div>
+    </div>
+    <div style="font-size: 0.75rem; color: var(--gray); margin-top: 12px;">
+      Even at worst-case (35% churn, 600K ARPU, 3% penetration) → ~18B VND ARR by Year 3. Business remains viable.
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TECH -->
+<section id="tech">
+  <div class="section-label">06 — Technical Architecture</div>
+  <h2 class="section-title">Modular, compliant,<br>built to update fast</h2>
+  <p class="section-desc">Regulatory environments change. The architecture is designed so new Circular rules deploy in &lt;30 days — without touching the mobile app.</p>
+
+  <div class="tech-grid reveal">
+    <div class="tech-item">
+      <div class="tech-icon">📱</div>
+      <div class="tech-info">
+        <h4>Flutter Mobile (iOS + Android)</h4>
+        <p>Single codebase, &lt;2MB download, offline-capable data sync. Serves rural household businesses with limited connectivity.</p>
+      </div>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">👁</div>
+      <div class="tech-info">
+        <h4>Google Vision + VietOCR</h4>
+        <p>&gt;92% accuracy on Vietnamese handwritten and printed text. Removes manual data entry entirely for Pro users.</p>
+      </div>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">⚙️</div>
+      <div class="tech-info">
+        <h4>Python Rule Engine (Flask)</h4>
+        <p>Deterministic JSON rules for all 6 business types. Versioned, CI/CD deployed. &lt;30-day SLA for regulatory updates.</p>
+      </div>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">📄</div>
+      <div class="tech-info">
+        <h4>GDT E-Invoice XML Engine</h4>
+        <p>Compliant with Circular 78/2021 and General Department of Taxation schema v2.0. ReportLab PDF + XML dual output per transaction.</p>
+      </div>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">🔔</div>
+      <div class="tech-info">
+        <h4>Firebase + Zalo OA Webhooks</h4>
+        <p>Deadline alerts, penalty risk warnings, and method optimization nudges. Zalo reaches 76M active Vietnamese users.</p>
+      </div>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">🔒</div>
+      <div class="tech-info">
+        <h4>AES-256 + Decree No. 13/2023 Compliance</h4>
+        <p>Encryption at rest and in transit. Full audit log, RBAC, data minimization. Pre-launch third-party security audit planned.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-label">07 — Go-to-Market Roadmap</div>
+  <h2 class="section-title">6-month launch plan<br>with clear KPIs</h2>
+  <p class="section-desc">E-commerce sellers as beachhead, then urban household businesses communities, then rural via B2G government partnership.</p>
+
+  <div class="roadmap reveal">
+    <div class="roadmap-item">
+      <div class="roadmap-dot">M1–2</div>
+      <div class="roadmap-content">
+        <h4>Beta MVP Launch — Core features live</h4>
+        <p>Revenue tracking, tax calculation, basic e-invoice. Freemium tier open to first users.</p>
+        <span class="kpi-tag">KPI: 500 beta users · NPS &gt; 50</span>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot">M2–3</div>
+      <div class="roadmap-content">
+        <h4>E-commerce Blitz — Shopee / TikTok Shop campaign</h4>
+        <p>Target 601,800 platform sellers facing platform tax withholding from Jan 2026. Lowest CAC channel (50–150K VND).</p>
+        <span class="kpi-tag">KPI: 5,000 free signups from platform sellers</span>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot">M3–4</div>
+      <div class="roadmap-content">
+        <h4>First Conversion Wave — Q1 2026 tax deadline support</h4>
+        <p>April 2026 quarterly filing deadline creates natural urgency. Free users experience the full value proposition.</p>
+        <span class="kpi-tag">KPI: 1,000 paid conversions (free → Basic)</span>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot">M4–5</div>
+      <div class="roadmap-content">
+        <h4>Pro Tier Launch — AI OCR goes live</h4>
+        <p>OCR invoice scanning and Pro tier launched. Power users upgraded. App Store reviews drive organic growth.</p>
+        <span class="kpi-tag">KPI: 500 Pro upgrades · Positive App Store rating</span>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot">M5–6</div>
+      <div class="roadmap-content">
+        <h4>B2G Outreach — General Department of Taxation partnership discussions</h4>
+        <p>Government credibility multiplier. MOU with GDT unlocks near-zero CAC distribution to 3.83M registered household businesses.</p>
+        <span class="kpi-tag">KPI: MOU signed or pilot program agreed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="section-label">08 — Social Impact & ESG</div>
+  <h2 class="section-title">Formalization of<br>Vietnam's informal economy</h2>
+  <p class="section-desc">Aligned with SDG 8, 9, 10, and 16. TaxEase directly supports General Department of Taxation's mandate to digitize 100% of tax interactions by 2030.</p>
+
+  <div class="impact-grid reveal">
+    <div class="impact-card">
+      <div class="impact-num">1.34M</div>
+      <div class="impact-info">
+        <h4>household businesses digitized</h4>
+        <p>85% currently unserved by any accounting software. TaxEase provides professional-grade tools at accessible prices.</p>
+      </div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">8–20M</div>
+      <div class="impact-info">
+        <h4>VND penalties avoided per household businesses</h4>
+        <p>Proactive alerts eliminate accidental non-compliance. TaxEase cost (900K/year) delivers >10x ROI on penalty risk alone.</p>
+      </div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">1.07B+</div>
+      <div class="impact-info">
+        <h4>Paper pages digitized/year</h4>
+        <p>4 mandatory accounting books × ~200 pages × 1.34M household businesses. Directly supports General Department of Taxation's 100% e-invoicing mandate.</p>
+      </div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num">2.68M</div>
+      <div class="impact-info">
+        <h4>Tax office trips avoided/year</h4>
+        <p>~2 trips/year × 1.34M household businesses. Estimated 1,200 tCO2e/year saved. Rural and suburban household businesses save both time and transport cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FOOTER -->
+<footer>
+  <h3>TaxEase VN — Portfolio Project</h3>
+  <p>
+    Concept stage · Seeking feedback, mentors, and collaborators<br>
+    Policy-validated · Technically feasible · Market-timed for Vietnam's 2026 reform<br>
+    Built to demonstrate product strategy, market research, and GovTech thinking
+  </p>
+  <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+    <a href="www.linkedin.com/in/my-nguyen-ly-kha-25786a330" class="btn-primary" style="font-size: 0.82rem; padding: 10px 20px;">Connect on LinkedIn →</a>
+    <a href="https://drive.google.com/file/d/1hzv70NAMabNsqIvrH8_P9qWBCoG8bAW6/view?usp=sharing" class="btn-outline" style="font-size: 0.82rem; padding: 10px 20px;">Download Full Report (PDF)</a>
+  </div>
+  <div class="footer-meta" style="margin-top: 32px;">
+    TAXEASE VN · GOVTECH · VIETNAM 2026 · NGUYEN LY KHA MY PORTFOLIO <br>
+    Policy basis: Law No. 109/2025/QH15  · Decree 117/2025/ND-CP · Resolution No. 198/2025/QH15
+  </div>
+</footer>
+
+<script>
+  // Intersection observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // KPI strip animation
+  const kpiObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll('.kpi-item');
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add('visible'), i * 120);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const kpiStrip = document.querySelector('.kpi-strip');
+  if (kpiStrip) kpiObserver.observe(kpiStrip);
+
+  // Revenue bar animation
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bars = entry.target.querySelectorAll('.rev-bar');
+        bars.forEach((bar, i) => {
+          const targetWidth = bar.dataset.width;
+          setTimeout(() => {
+            bar.style.width = targetWidth + '%';
+          }, i * 200 + 200);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  const revenueSection = document.querySelector('.revenue-bars');
+  if (revenueSection) barObserver.observe(revenueSection.parentElement);
+</script>
+</body>
+</html>
